@@ -1,6 +1,6 @@
 type Query {
 	# Retourne tous les utilisateurs de la base de données.
-	users: [User!]!
+	users(nbUsersPerPage: Int, page: Int): [User!]!
 
 	# Retourne l'utilisateur correspondant au 'userId' reçu.
 	user(userId: ID!) : User

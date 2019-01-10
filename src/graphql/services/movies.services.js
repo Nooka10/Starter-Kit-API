@@ -6,12 +6,10 @@ async function getMovies({ limit = 50, page = 0 } = {}) {
     skip = page * limit;
   }
 
-  const res = await MoviesModel.find()
+  return await MoviesModel.find()
     .sort({ _id: 1 })
     .skip(+skip)
     .limit(+limit);
-
-  return res;
 }
 
 function getMovieById(id) {

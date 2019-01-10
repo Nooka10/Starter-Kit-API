@@ -3,9 +3,16 @@ const bcrypt = require('bcrypt');
 const UsersModel = require('../models/users.modelgql');
 const config = require('../../config/config');
 
-function getUsers() {
+async function getUsers({ limit = 50, page = 0 } = {}) {
+  let skip;
+  if (page !== 0) {
+    skip = page * limit;
+  }
+
   return UsersModel.find()
-    .sort({ _id: 1 });
+    .sort({ _id: 1 })
+    .skip(+skip)
+    .limit(+limit);
 }
 
 function getUserById(id) {

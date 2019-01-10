@@ -4,7 +4,7 @@ const moviesServices = require('../services/movies.services');
 
 const usersResolvers = {
   Query: {
-    users: (parent, args, context) => usersServices.getUsers(),
+    users: (parent, args, context) => usersServices.getUsers({ limit: args.nbUsersPerPage, page: args.page }),
 
     user: (parent, args, context) => usersServices.getUserById(args.userId),
 

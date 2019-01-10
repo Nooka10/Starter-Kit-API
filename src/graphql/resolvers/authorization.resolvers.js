@@ -6,14 +6,6 @@ const checkIfIsYourself = (idInContext, idInArgs) => (idInArgs === idInContext ?
   'You can\'t modify information of another user than yourself!'
 ));
 
-const isAuthenticated = (idInContext) => {
-  const result = checkIfIsAuthenticated(idInContext);
-  if (result.message != null) {
-    throw result;
-  }
-  return true;
-};
-
 const isAuthenticatedAndIsYourself = (idInContext, idInArgs) => {
   const resultAuthenticated = checkIfIsAuthenticated(idInContext);
   const resultYourself = checkIfIsYourself(idInContext, idInArgs);
@@ -27,6 +19,5 @@ const isAuthenticatedAndIsYourself = (idInContext, idInArgs) => {
 };
 
 module.exports = {
-  isAuthenticated,
   isAuthenticatedAndIsYourself
 };
