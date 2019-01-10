@@ -13,6 +13,12 @@ type Query {
 }
 
 type Mutation {
+	# Permet d'ajouter le film correspondant à l'id 'movieId' à la watchlist de l'utilisateur correspondant à l'id 'userId'
+	addMovieToWatchList(userId: ID!, movieId: ID!): User
+
+	# Permet de supprimer le film correspondant à l'id 'movieId' de la watchlist de l'utilisateur correspondant à l'id 'userId'
+	removeMovieToWatchList(userId: ID!, movieId: ID!): User
+
 	# Met à jour l'utilisateur correspondant à l'id reçu dans l'objet 'user' avec les informations également contenues dans l'objet 'user'.
 	updateUser(user: UserInputUpdate!): User
 
@@ -25,7 +31,7 @@ type User {
 	firstname: String!
 	lastname: String!
 	email: String!
-	nbPosts: Int!
+	watchList: [Movies!]!
 }
 
 input UserInputAdd {

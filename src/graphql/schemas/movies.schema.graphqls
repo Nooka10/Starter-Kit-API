@@ -1,0 +1,27 @@
+type Query {
+	# Retourne tous les films de la base de données.
+	movies(nbMoviesPerPage: Int, page: Int): [Movies!]!
+
+	# Retourne le film correspondant au 'movieId' reçu.
+	movie(movieId: ID!) : Movies
+}
+
+type Movies {
+	id: ID!
+	vote_count: Int!
+	video: Boolean!
+	vote_average: Float!
+	title: String!
+	popularity: Float!
+	poster_path: String!
+	original_language: String!
+	original_title: String!
+	backdrop_path: String!
+	adult: Boolean!
+	overview: String!
+	release_date: Date!
+	tmdb_id: Int!
+	genres: [String!]!
+}
+
+scalar Date

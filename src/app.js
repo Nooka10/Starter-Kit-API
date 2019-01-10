@@ -6,6 +6,7 @@ const jwt = require('jsonwebtoken');
 const { resolvers, schema: typeDefs } = require('./graphql/graphqlConfig');
 
 const config = require('./config/config');
+const usersServices = require('./graphql/services/users.services');
 
 mongoose.connect(config.db, { useNewUrlParser: true })
   .then(() => console.log(`connecté à la base de donnée de ${process.env.NODE_ENV} --> ${config.db}`))
@@ -21,7 +22,8 @@ const getToken = async(req) => {
 
   if (token) {
     try {
-      return await jwt.verify(token, config.jwtSecret);
+      const tokenContent = await jwt.verify(token, config.jwtSecret);
+      return usersServices.getUserById(tokenContent.id);
     } catch (e) {
       throw new AuthenticationError('Your session expired. Sign in again.');
     }

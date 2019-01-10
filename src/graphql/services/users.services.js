@@ -66,8 +66,7 @@ async function addUser({ firstname, lastname, email, password }) {
       firstname,
       lastname,
       email,
-      password: await bcrypt.hash(password, 10),
-      nbPosts: 0
+      password: await bcrypt.hash(password, 10)
     };
 
     return new UsersModel(userToAdd).save();
@@ -76,12 +75,12 @@ async function addUser({ firstname, lastname, email, password }) {
   }
 }
 
-function addOnePostToCount(idUser) {
-  return UsersModel.findByIdAndUpdate(idUser, { $inc: { nbPosts: +1 } }, { new: true });
+function addFilmToWatchListOfUser(userId, movieId) {
+  return UsersModel.findByIdAndUpdate(userId, { $addToSet: { watchList: movieId } }, { new: true }); // retourne l'objet modifié
 }
 
-function removeOnePostToCount(idUser) {
-  return UsersModel.findByIdAndUpdate(idUser, { $inc: { nbPosts: -1 } }, { new: true });
+function removeFilmToWatchListOfUser(userId, movieId) {
+  return UsersModel.findByIdAndUpdate(userId, { $pull: { watchList: movieId } }, { new: true }); // retourne l'objet modifié
 }
 
 async function updateUser({ id, firstname, lastname }) {
@@ -110,8 +109,8 @@ module.exports = {
   getUserByLogin,
   isEmailAvailable,
   addUser,
-  addOnePostToCount,
-  removeOnePostToCount,
+  addFilmToWatchListOfUser,
+  removeFilmToWatchListOfUser,
   updateUser,
   deleteUser
 };
