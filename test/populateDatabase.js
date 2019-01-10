@@ -1,5 +1,6 @@
 const clearDB = require('./graphql/clearDB');
 const usersServices = require('../src/graphql/services/users.services');
+const moviesServies = require('../src/graphql/services/movies.services');
 
 let tabUsers;
 
@@ -42,6 +43,21 @@ const populateDB = async() => {
       password: '1234abcd'
     }
   );
+
+  const tabFilms = await moviesServies.getMovies();
+
+  await usersServices.addFilmToWatchListOfUser(user1.id, tabFilms[0].id);
+  await usersServices.addFilmToWatchListOfUser(user1.id, tabFilms[1].id);
+  await usersServices.addFilmToWatchListOfUser(user1.id, tabFilms[2].id);
+  await usersServices.addFilmToWatchListOfUser(user1.id, tabFilms[3].id);
+  await usersServices.addFilmToWatchListOfUser(user1.id, tabFilms[4].id);
+
+  await usersServices.addFilmToWatchListOfUser(user2.id, tabFilms[5].id);
+  await usersServices.addFilmToWatchListOfUser(user2.id, tabFilms[6].id);
+  await usersServices.addFilmToWatchListOfUser(user2.id, tabFilms[7].id);
+
+  await usersServices.addFilmToWatchListOfUser(user3.id, tabFilms[8].id);
+  await usersServices.addFilmToWatchListOfUser(user3.id, tabFilms[9].id);
 
 
   // ------------------------------------------------------------------------- tableaux ------------------------------------------------------------------------

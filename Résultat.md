@@ -4,6 +4,8 @@
 
 L'api est disponible à l'url: https://tweb-te2-api.herokuapp.com/graphql
 
+La base de données est déployée sur Atlas.
+
 Le frontend du bonus est disponible à l'url: https://tweb-te2-front.herokuapp.com
 
 ### 1. Importer une collection de films (0.5pt)
@@ -132,7 +134,14 @@ De plus, lors de l'ajout d'un film à la watchlist de l'utilisateur, un hook mon
 
 ### 5. (Bonus) Formulaire de login (0.5pt)
 
-Vous implémentez une application statique avec un formulaire de login.
+Je m'ennuyais un peu, du coup, je vous ai fait un formulaire de login et un formulaire d'inscription.
+
+Ils sont disponibles ici :
+
+```
+https://tweb-te2-front.herokuapp.com/login
+https://tweb-te2-front.herokuapp.com/sign-up
+```
 
 
 
