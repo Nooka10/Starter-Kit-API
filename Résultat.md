@@ -2,6 +2,10 @@
 
 ## Option 2 : Movie Time (backend)
 
+L'api est disponible à l'url: https://tweb-te2-api.herokuapp.com/graphql
+
+Le frontend du bonus est disponible à l'url: https://tweb-te2-front.herokuapp.com
+
 ### 1. Importer une collection de films (0.5pt)
 
 **Répartion des points:**
