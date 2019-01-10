@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
 const UsersModel = require('../models/users.modelgql');
+const config = require('../../config/config');
 
 function getUsers() {
   return UsersModel.find()
@@ -12,7 +13,7 @@ function getUserById(id) {
 }
 
 async function getUserByToken(token) {
-  const tokenContent = await jwt.decode(token);
+  const tokenContent = await jwt.verify(token, config.jwtSecret);
 
   if (tokenContent == null || tokenContent.id == null) {
     return null;
@@ -65,13 +66,22 @@ async function addUser({ firstname, lastname, email, password }) {
       firstname,
       lastname,
       email,
-      password: await bcrypt.hash(password, 10)
+      password: await bcrypt.hash(password, 10),
+      nbPosts: 0
     };
 
     return new UsersModel(userToAdd).save();
   } else {
     throw new Error('This email is already used.');
   }
+}
+
+function addOnePostToCount(idUser) {
+  return UsersModel.findByIdAndUpdate(idUser, { $inc: { nbPosts: +1 } }, { new: true });
+}
+
+function removeOnePostToCount(idUser) {
+  return UsersModel.findByIdAndUpdate(idUser, { $inc: { nbPosts: -1 } }, { new: true });
 }
 
 async function updateUser({ id, firstname, lastname }) {
@@ -100,6 +110,8 @@ module.exports = {
   getUserByLogin,
   isEmailAvailable,
   addUser,
+  addOnePostToCount,
+  removeOnePostToCount,
   updateUser,
   deleteUser
 };

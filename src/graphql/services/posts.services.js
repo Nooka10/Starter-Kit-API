@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const PostsModel = require('../models/posts.modelgql');
+const usersServices = require('./users.services');
 
 function getAllPostsOfUser(userId, { limit = 30, page = 0 } = {}) {
   let skip;
@@ -21,16 +22,16 @@ function addPostOfUser(post) {
 }
 
 async function deletePostOfUser(postId, userId) {
-  const post = await PostsModel.findById(postId);
-
   if (!mongoose.Types.ObjectId.isValid(userId)) {
     throw new Error('Received userId is invalid!');
   }
-  if (post.userId.toString() !== userId) {
+  const post = await PostsModel.findById(postId);
+  if (post == null || post.userId.toString() !== userId) {
     throw new Error('  You can\'t modify information of another user than yourself!');
   }
-
-  return PostsModel.findByIdAndRemove(postId);
+  const deletedPost = await PostsModel.findByIdAndRemove(postId);
+  await usersServices.removeOnePostToCount(userId);
+  return deletedPost;
 }
 
 module.exports = {

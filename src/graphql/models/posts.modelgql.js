@@ -36,6 +36,7 @@ postsSchema.pre('save', async function(next) {
     if (userExist == null) {
       throw new Error(`The given userId (${this.userId}) doesn’t exist in the database!`);
     }
+    await userServices.addOnePostToCount(this.userId);
     next();
   } catch (err) {
     next(err);

@@ -26,6 +26,11 @@ const userSchema = new mongoose.Schema(
     password: {
       type: mongoose.Schema.Types.String,
       required: true
+    },
+    nbPosts: {
+      type: mongoose.Schema.Types.Number,
+      required: true,
+      default: 0
     }
   }, options
 );
